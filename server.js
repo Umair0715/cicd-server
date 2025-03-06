@@ -20,7 +20,7 @@ const Product = mongoose.model('Product' , new mongoose.Schema({
 
 app.get('/' , async (req , res) => {
     const products = await Product.find({});
-    res.json({ products })
+    res.json({ message : 'hello from express in docker via CICD' , products })
 });
 
 
