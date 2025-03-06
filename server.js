@@ -5,10 +5,6 @@ const cors = require('cors')
 
 const dotenv = require("dotenv");
 
-dotenv.config({
-  path: process.env.NODE_ENV === "production" ? ".env" : ".env.local",
-});
-
 app.use(express.json())
 app.use(cors('*'))
 

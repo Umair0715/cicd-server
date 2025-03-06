@@ -1,0 +1,28 @@
+name: Deploy Server
+on:
+    push:
+        branches:
+            - main
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Source
+              uses: actions/checkout@v4
+            - name: Login to docker hub
+              run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}     
+
+            - name: Build Docker Image
+              run: docker build -t umair071567/cicd-server .
+            - name: Push Image To Docker Hub
+              run: docker push umair071567/cicd-server:latest
+    
+    deploy:
+        runs-on: self-hosted
+        steps:
+            - name: Pull Docker Image
+              run: docker pull umair071567/cicd-server
+            - name: Delete old container
+              run: docker rm -f server-container
+            - name: Run Docker Container
+              run: docker run -d -p 4000:4000 --name server-container
