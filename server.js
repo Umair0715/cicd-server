@@ -8,6 +8,7 @@ const dotenv = require("dotenv");
 app.use(express.json())
 app.use(cors('*'))
 
+console.log({ DATABASE_URI : process.env.DATABASE_URI })
 mongoose.connect(process.env.DATABASE_URI)
 .then(() => console.log('database connected.'))
 .catch(err => console.log(`Database connection failed. ${err}`));
